@@ -20,6 +20,7 @@ import com.tech.command.BCommand;
 import com.tech.prjm09.dao.IDao;
 import com.tech.prjm09.dto.BDto;
 import com.tech.prjm09.dto.ReBrdImgDto;
+import com.tech.prjm09.service.BContentViewService;
 import com.tech.prjm09.service.BListService;
 import com.tech.prjm09.service.BServiceInter;
 import com.tech.prjm09.util.SearchVO;
@@ -111,12 +112,9 @@ public class BController {
 	public String content_view(HttpServletRequest request,
 			Model model) {
 		System.out.println("content_view() ctr");
-		String bid=request.getParameter("bid");
-		BDto dto = iDao.contentView(bid);
-		model.addAttribute("content_view",dto);
-		
-		ArrayList<ReBrdImgDto> imgList = iDao.selectImg(bid);
-		model.addAttribute("imgList", imgList);
+		model.addAttribute("request", request);
+		bServiceInter = new BContentViewService(iDao);
+		bServiceInter.execute(model);
 		
 		return "content_view";
 	}

@@ -125,4 +125,8 @@
 	<select id="selectImg" resultType="com.tech.prjm09.dto.ReBrdImgDto">
 		SELECT REBNO, BID, REBORGFILE, REBCHGFILE FROM REBRDIMGTB WHERE BID=#{param1}
 	</select>
+	
+	<update id="upHit">
+		UPDATE REPLYBOARD SET BHIT = BHIT + 1 WHERE BID = #{param1}
+	</update>
 </mapper>

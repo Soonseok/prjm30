@@ -26,4 +26,5 @@ public interface IDao {
 	public void imgwrite(int bid, String originalFile, String changeFile);
 	public ArrayList<ReBrdImgDto> selectImg(String bid);
 	public Map<String, Object> check_indent(String sbid, String sbgroup);
+	public void upHit(String bid);
 }
