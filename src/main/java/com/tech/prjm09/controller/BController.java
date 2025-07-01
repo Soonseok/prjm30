@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,9 +18,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.tech.command.BCommand;
 import com.tech.prjm09.dao.IDao;
 import com.tech.prjm09.dto.BDto;
-import com.tech.prjm09.dto.ReBrdImgDto;
 import com.tech.prjm09.service.BContentViewService;
 import com.tech.prjm09.service.BListService;
+import com.tech.prjm09.service.BModifyService;
 import com.tech.prjm09.service.BServiceInter;
 import com.tech.prjm09.util.SearchVO;
 
@@ -158,12 +157,12 @@ public class BController {
 	public String modify(HttpServletRequest request,
 			Model model) {
 		System.out.println("modify() mybatis");
-		String bid=request.getParameter("bid");
-		String bname=request.getParameter("bname");
-		String btitle=request.getParameter("btitle");
-		String bcontent=request.getParameter("bcontent");
-		boolean result = iDao.modify(bid, bname, btitle, bcontent);
 		
+		model.addAttribute("request", request);
+		bServiceInter = new BModifyService(iDao);
+		bServiceInter.execute(model);
+		
+		Boolean result = (Boolean) model.asMap().get("modifyResult");
 		String message = result ? "modify_success" : "modify_failure";
 	    return "redirect:list?result=" + message;
 	}
